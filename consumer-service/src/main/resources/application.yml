@@ -4,3 +4,5 @@ spring:
   devtools:
     livereload:
       port: 35740
+  kafka:
+    bootstrap-servers: localhost:9092
