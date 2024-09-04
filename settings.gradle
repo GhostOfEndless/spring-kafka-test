@@ -1,3 +1,4 @@
 rootProject.name = 'spring-kafka-test'
 include 'producer-service'
+include 'consumer-service'
 
