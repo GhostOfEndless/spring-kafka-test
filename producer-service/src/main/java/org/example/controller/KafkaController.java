@@ -2,6 +2,7 @@ package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.entity.Message;
 import org.example.kafka.KafkaProducer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class KafkaController {
     @PostMapping
     public ResponseEntity<String> send(@RequestBody String message) {
         log.info("Message is: {}", message);
-        kafkaProducer.sendMessage(message);
+        kafkaProducer.sendMessage(new Message(1L, message));
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 }
