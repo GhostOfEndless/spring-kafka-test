@@ -1,0 +1,36 @@
+# noinspection ComposeUnknownKeys
+include:
+  - compose-environment.yml
+
+services:
+  producer-service:
+    build:
+      context: ../../
+      dockerfile: docker/producer-service.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - '8090:8090'
+    container_name: producer-service
+    environment:
+      KAFKA_BOOTSTRAP_SERVER: ${KAFKA_HOST:-kafka}:9092
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully
+
+  consumer-service:
+    build:
+      context: ../../
+      dockerfile: docker/consumer-service.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - '8091:8091'
+    container_name: consumer-service
+    environment:
+      KAFKA_BOOTSTRAP_SERVER: ${KAFKA_HOST:-kafka}:9092
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully

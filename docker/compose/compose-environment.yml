@@ -1,7 +1,9 @@
 services:
   kafka:
     image: &kafka-image bitnami/kafka
-    container_name: kafka
+    container_name: ${KAFKA_HOST:-kafka}
+    env_file:
+      - .env
     ports:
       - '9094:9094'
     environment:
@@ -29,6 +31,6 @@ services:
         condition: service_healthy
     command: |
       -c "
-      kafka-topics.sh --create --if-not-exists --topic message-topic --bootstrap-server kafka:9092
-      kafka-topics.sh --describe --bootstrap-server kafka:9092
+      kafka-topics.sh --create --if-not-exists --topic message-topic --bootstrap-server ${KAFKA_HOST:-kafka}:9092
+      kafka-topics.sh --describe --bootstrap-server ${KAFKA_HOST:-kafka}:9092
       "

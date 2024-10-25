@@ -1,7 +1,7 @@
 plugins {
     id 'io.freefair.lombok' version '8.10'
     id 'io.spring.dependency-management' version '1.1.6'
-    id 'org.springframework.boot' version '3.3.3'
+    id 'org.springframework.boot' version '3.3.4'
     id 'java'
 }
 
@@ -13,13 +13,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.3.3'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.kafka:spring-kafka:3.2.3'
 
-
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-    testImplementation ('org.springframework.boot:spring-boot-starter-test:3.3.3') {
+    testImplementation ('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 }
