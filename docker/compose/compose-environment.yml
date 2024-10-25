@@ -24,6 +24,8 @@ services:
   init-kafka:
     image: *kafka-image
     container_name: init-kafka
+    env_file:
+      - .env
     working_dir: /opt/bitnami/kafka/bin
     entrypoint: /bin/bash
     depends_on:
