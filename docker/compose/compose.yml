@@ -7,6 +7,8 @@ services:
     build:
       context: ../../
       dockerfile: docker/producer-service.Dockerfile
+    networks:
+      - app-tier
     restart: unless-stopped
     env_file:
       - .env
@@ -14,7 +16,7 @@ services:
       - '8090:8090'
     container_name: producer-service
     environment:
-      KAFKA_BOOTSTRAP_SERVER: ${KAFKA_HOST:-kafka}:9092
+      KAFKA_BOOTSTRAP_SERVER: kafka:9092
     depends_on:
       init-kafka:
         condition: service_completed_successfully
@@ -23,6 +25,8 @@ services:
     build:
       context: ../../
       dockerfile: docker/consumer-service.Dockerfile
+    networks:
+      - app-tier
     restart: unless-stopped
     env_file:
       - .env
@@ -30,7 +34,7 @@ services:
       - '8091:8091'
     container_name: consumer-service
     environment:
-      KAFKA_BOOTSTRAP_SERVER: ${KAFKA_HOST:-kafka}:9092
+      KAFKA_BOOTSTRAP_SERVER: kafka:9092
     depends_on:
       init-kafka:
         condition: service_completed_successfully
